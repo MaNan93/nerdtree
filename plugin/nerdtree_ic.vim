@@ -4,6 +4,7 @@ if exists('g:loaded_nerdtree_ic_custom')
   finish
 endif
 let g:loaded_nerdtree_ic_custom = 1
+let g:NERDTreeICVersion = '2026-10-15-unicode-v2'
 
 " F2 toggles NERDTree when the key is otherwise unused.
 if get(g:, 'NERDTreeICMapF2', 1) && maparg('<F2>', 'n') ==# ''
@@ -30,8 +31,7 @@ let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '▣'
 let g:DevIconsDefaultFolderOpenSymbol = '▤'
 let g:WebDevIconsUnicodeDecorateFolderNodesSymlinkSymbol = '◇'
 
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols =
-      \ get(g:, 'WebDevIconsUnicodeDecorateFileNodesExtensionSymbols', {})
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = get(g:, 'WebDevIconsUnicodeDecorateFileNodesExtensionSymbols', {})
 let s:icons = {
       \ 'v':'◆', 'sv':'◆', 'vh':'◈', 'svh':'◈',
       \ 'vhd':'◆', 'vhdl':'◆', 'sdc':'⚙', 'xdc':'⚙',
@@ -44,7 +44,7 @@ let s:icons = {
       \ 'cc':'●', 'cpp':'●', 'hpp':'○',
       \ 'vim':'✦', 'xml':'▧', 'log':'▤',
       \ 'ini':'⚙', 'cfg':'⚙', 'conf':'⚙',
-      \ 'mk':'⚙', 'sh':'✦', 'bat':'✦',
+      \ 'mk':'⚙', 'bat':'✦',
       \ 'gz':'▦', 'zip':'▦', 'tar':'▦'
       \ }
 for [s:ext, s:glyph] in items(s:icons)
