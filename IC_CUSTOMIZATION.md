@@ -19,6 +19,20 @@ does not implement file-type icons. Icons cover Verilog/SystemVerilog,
 VHDL, Tcl/SDC/XDC, filelists, Liberty/LEF/DEF/SDF/SPEF, RALF, Python,
 shell, Perl, CSV, JSON, YAML and Markdown. Open/closed folder glyphs are enabled.
 
+On Linux, this fork **disables Nerd Font glyphs by default** so terminals with
+ordinary fonts no longer show reverse question marks. Once your terminal is
+configured to use a Nerd Font, enable icons in `~/.vimrc` **before plugins load**:
+
+```vim
+let g:NERDTreeICUseNerdFont = 1
+```
+
+Restart Vim. To check the terminal font, use the terminal emulator's font
+settings; setting `guifont` only changes GVim, not terminal Vim.
+If `g:WebDevIconsUnicodeDecorateFileNodes` or
+`g:WebDevIconsUnicodeDecorateFolderNodes` was already set, its explicit
+value takes precedence.
+
 For Windows GVim 9.1:
 
 1. Install a Nerd Font and choose it in GVim, for example:
@@ -37,8 +51,7 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 ```
 
-If you do not install vim-devicons, F2 and directory arrows still work,
-but file-type icons will not appear.
+If you do not install vim-devicons, F2 still works, but file-type icons will not appear. Linux without Nerd Font uses plain ASCII directory arrows.
 
 Customize any extension by setting the relevant entry in
 `g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols` in `_vimrc`
