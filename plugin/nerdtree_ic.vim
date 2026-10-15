@@ -13,9 +13,12 @@ if get(g:, 'NERDTreeICMapF2', 1) && maparg('<F2>', 'n') ==# ''
   nnoremap <silent> <F2> :NERDTreeToggle<CR>
 endif
 
-" Built-in Windows GVim-friendly directory expand/collapse arrows.
-let g:NERDTreeDirArrowExpandable = get(g:, 'NERDTreeDirArrowExpandable', '▸')
-let g:NERDTreeDirArrowCollapsible = get(g:, 'NERDTreeDirArrowCollapsible', '▾')
+" Windows NERDTree has already initialized '+' and '~' by this point.
+" Replace them explicitly, with an opt-out for legacy fonts.
+if get(g:, 'NERDTreeICUseUnicodeArrows', 1)
+  let g:NERDTreeDirArrowExpandable = '▸'
+  let g:NERDTreeDirArrowCollapsible = '▾'
+endif
 
 " File and directory icons require ryanoasis/vim-devicons plus a Nerd Font.
 " The following are applied before vim-devicons initializes its dictionary.
