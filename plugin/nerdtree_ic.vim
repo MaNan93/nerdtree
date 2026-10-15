@@ -13,18 +13,26 @@ if get(g:, 'NERDTreeICMapF2', 1) && maparg('<F2>', 'n') ==# ''
   nnoremap <silent> <F2> :NERDTreeToggle<CR>
 endif
 
-" Windows NERDTree has already initialized '+' and '~' by this point.
-" Replace them explicitly, with an opt-out for legacy fonts.
-if get(g:, 'NERDTreeICUseUnicodeArrows', 1)
+" Most Nerd Font icons below are private-use glyphs. Linux terminals often
+" display a reverse question mark when the active font lacks these glyphs.
+" Default to a portable, icon-free tree on Linux; opt in after configuring
+" a Nerd Font in the terminal. Windows GVim keeps the original icon defaults.
+let g:NERDTreeICUseNerdFont = get(g:, 'NERDTreeICUseNerdFont',
+      \ has('win32') || has('win64') || has('win32unix'))
+
+if get(g:, 'NERDTreeICUseUnicodeArrows', g:NERDTreeICUseNerdFont)
   let g:NERDTreeDirArrowExpandable = '▸'
   let g:NERDTreeDirArrowCollapsible = '▾'
+elseif !g:NERDTreeICUseNerdFont
+  let g:NERDTreeDirArrowExpandable = '+'
+  let g:NERDTreeDirArrowCollapsible = '~'
 endif
 
 " File and directory icons require ryanoasis/vim-devicons plus a Nerd Font.
 " The following are applied before vim-devicons initializes its dictionary.
-let g:WebDevIconsUnicodeDecorateFileNodes = get(g:, 'WebDevIconsUnicodeDecorateFileNodes', 1)
-let g:WebDevIconsUnicodeDecorateFolderNodes = get(g:, 'WebDevIconsUnicodeDecorateFolderNodes', 1)
-let g:DevIconsEnableFoldersOpenClose = get(g:, 'DevIconsEnableFoldersOpenClose', 1)
+let g:WebDevIconsUnicodeDecorateFileNodes = get(g:, 'WebDevIconsUnicodeDecorateFileNodes', g:NERDTreeICUseNerdFont)
+let g:WebDevIconsUnicodeDecorateFolderNodes = get(g:, 'WebDevIconsUnicodeDecorateFolderNodes', g:NERDTreeICUseNerdFont)
+let g:DevIconsEnableFoldersOpenClose = get(g:, 'DevIconsEnableFoldersOpenClose', g:NERDTreeICUseNerdFont)
 
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols =
       \ get(g:, 'WebDevIconsUnicodeDecorateFileNodesExtensionSymbols', {})
