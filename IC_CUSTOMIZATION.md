@@ -1,60 +1,43 @@
-# IC/RTL customization (MaNan93 fork)
+# IC/RTL icons for NERDTree (MaNan93 fork)
 
-This fork retains upstream NERDTree behavior and adds a small, separately maintained
-`plugin/nerdtree_ic.vim` customization. No changes are needed in `_vimrc`
-for the **F2** shortcut after you install this fork.
+This fork adds F2 toggle and file-type icons for chip design work.
 
-## Shortcuts
+## Installation
 
-- **F2 (normal mode)**: toggle NERDTree (`:NERDTreeToggle`).
-- To keep an existing F2 mapping, this fork only maps F2 when it is unmapped.
-- To disable this mapping entirely, set `let g:NERDTreeICMapF2 = 0`
-  **before** this plugin is loaded in your `_vimrc`.
-
-## Icons
-
-File-type and folder icons are optional and use
-[vim-devicons](https://github.com/ryanoasis/vim-devicons); NERDTree alone
-does not implement file-type icons. Icons cover Verilog/SystemVerilog,
-VHDL, Tcl/SDC/XDC, filelists, Liberty/LEF/DEF/SDF/SPEF, RALF, Python,
-shell, Perl, CSV, JSON, YAML and Markdown. Open/closed folder glyphs are enabled.
-
-On Linux, this fork uses **ASCII file-type markers** by default (for example,
-`S` for `.sv`, `T` for `.tcl`, `P` for `.py`) instead of private-use Nerd Font
-glyphs, avoiding reverse question marks. **vim-devicons is still required** to
-show these markers. Once your terminal is
-configured to use a Nerd Font, enable icons in `~/.vimrc` **before plugins load**:
+Install both plugins. `vim-devicons` is required to actually render icons:
 
 ```vim
-let g:NERDTreeICUseNerdFont = 1
-```
-
-Restart Vim. To check the terminal font, use the terminal emulator's font
-settings; setting `guifont` only changes GVim, not terminal Vim.
-If `g:WebDevIconsUnicodeDecorateFileNodes` or
-`g:WebDevIconsUnicodeDecorateFolderNodes` was already set, its explicit
-value takes precedence.
-
-For Windows GVim 9.1:
-
-1. Install a Nerd Font and choose it in GVim, for example:
-   `set guifont=CaskaydiaCove_Nerd_Font:h11` (change to the font's actual GUI name).
-2. Install **this fork**, not the upstream NERDTree repository.
-3. Install `ryanoasis/vim-devicons` and ensure it is loaded **after** NERDTree.
-4. Restart GVim and use **F2** to toggle the tree.
-
-Example using vim-plug in `_vimrc`:
-
-```vim
-set encoding=utf-8
-call plug#begin('~/vimfiles/plugged')
+call plug#begin('~/.vim/plugged')
 Plug 'MaNan93/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 ```
 
-If you do not install vim-devicons, F2 still works, but neither file-type icons nor ASCII file markers appear. Linux without Nerd Font uses plain ASCII directory arrows.
+Use `:PlugUpdate` and restart Vim. F2 toggles NERDTree in normal mode.
 
-Customize any extension by setting the relevant entry in
-`g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols` in `_vimrc`
-before plugins load. The fork does not overwrite existing extension mappings.
+## Font requirement
+
+**Linux terminal Vim:** select a Nerd Font in your terminal emulator's font
+preferences. Example: JetBrainsMono Nerd Font or CaskaydiaCove Nerd Font.
+Setting Vim's `guifont` does not affect terminal Vim.
+
+**Windows GVim:** select an installed Nerd Font using `set guifont`.
+Check `:set encoding?` shows `utf-8`.
+
+Icons are enabled on both platforms by default. If question marks or boxes
+appear instead of icons, the active font cannot display the glyphs; changing
+the glyph mapping alone cannot fix a missing font.
+
+## File types
+
+- RTL: `.v`, `.sv`, `.vh`, `.svh`, VHDL
+- EDA: Tcl, SDC, XDC, filelists, RALF, SDF, Liberty, LEF, DEF, SPEF
+- Scripts/data: Python, shell, Perl, JSON, YAML, CSV, Markdown
+- Open and closed folders have distinct Nerd Font symbols through vim-devicons.
+
+## Customization
+
+The implementation is in `plugin/nerdtree_ic.vim`. It avoids editing NERDTree
+core files. Existing custom extension symbols are not overwritten.
+To disable the F2 mapping set `let g:NERDTreeICMapF2 = 0` in your vimrc
+before plugin loading. If F2 is already mapped, the plugin leaves it alone.
